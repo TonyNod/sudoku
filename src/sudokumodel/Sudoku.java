@@ -34,12 +34,12 @@ public class Sudoku implements SudokuModel{
 
 	@Override
 	public void init(String grid) {
-		/*for(int i = 0 ; i < this.cells.length ; i++){
+		for(int i = 0 ; i < this.cells.length ; i++){
 			for(int j = 0  ; j < this.cells.length ; j++){
 				
-				this.cells[i][j].setValue(grid.charAt(i * j)); 
+				//this.cells[i][j].setValue(grid.charAt(i * j)); 
 			}
-		}*/
+		}
 	}
 
 	@Override

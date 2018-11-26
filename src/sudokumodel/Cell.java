@@ -21,6 +21,11 @@ public class Cell implements CellValue {
 		}
 		
 	}
+	
+	public void setInitialValue(int value){
+		this.value = value;
+	}
+
 
 	/**
 	 * @return the line

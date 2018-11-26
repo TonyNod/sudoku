@@ -9,7 +9,7 @@ public class Sudoku implements SudokuModel{
 	private Group[] blocs;
 	private Group[] column;
 	private Group[] lines;
-//	private ArrayList<HintSolver> hints;
+	//private ArrayList<HintSolver> hints;
 	
 	public Sudoku(){
 		this.cells = new Cell[9][9];
@@ -35,11 +35,11 @@ public class Sudoku implements SudokuModel{
 	@Override
 	public void init(String grid) {
 		for(int i = 0 ; i < this.cells.length ; i++){
-			for(int j = 0  ; j < this.cells.length ; j++){
-				
-				//this.cells[i][j].setValue(grid.charAt(i * j)); 
+			for(int j = 0 ; j < this.cells.length ; j++){			
+				this.cells[i][j].setInitialValue(grid.charAt(i*j));
 			}
 		}
+		this.grilleinitialisee = true;
 	}
 
 	@Override

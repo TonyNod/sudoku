@@ -3,15 +3,15 @@ package sudokumodel;
 import java.util.ArrayList;
 
 public class Cell implements CellValue {
-	
+
 	private int value;
 	private boolean initialValue;
 	private boolean[] candidates;
 	private Group line;
 	private Group column;
 	private Group bloc;
-	
-	
+
+
 	public Cell(){
 		this.value = 0;
 		this.initialValue = false;
@@ -19,11 +19,15 @@ public class Cell implements CellValue {
 		for(int i = 0 ; i < this.candidates.length; i++){
 			this.candidates[i] = true;
 		}
-		
+
 	}
-	
+
 	public void setInitialValue(int value){
 		this.value = value;
+		if(value != 0)this.initialValue = true;
+		for(int i = 0 ; i < this.candidates.length; i++){
+			this.candidates[i] = false;
+		}
 	}
 
 
@@ -87,12 +91,32 @@ public class Cell implements CellValue {
 
 	@Override
 	public boolean isError() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		if(!this.initialValue && this.value != 0){
+			/*
+			 	ancien code : 
+			 	for(int i = 0 ; i < 9; i++){
+				if(this.value == this.line.getCells(i).value) res = true;
+				if(this.value == this.bloc.getCells(i).value) res = true;
+				if(this.value == this.column.getCells(i).value) res = true;
+			}
+			 */
+			res = line.checckError(value) && column.checckError(value) && bloc.checckError(value);
+		}
+		return res;
 	}
-	
 
-	
-	
+	public boolean setValue(int value){
+		boolean res = false;
+		if(this.initialValue == false){
+			this.value = value;
+			res = true;
+		}
+		return res;
+	}
+
+
+
+
 
 }

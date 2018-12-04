@@ -3,14 +3,14 @@ package sudokumodel;
 import java.util.ArrayList;
 
 public class Sudoku implements SudokuModel{
-	
+
 	private boolean grilleinitialisee;
 	private Cell[][] cells;
 	private Group[] blocs;
 	private Group[] column;
 	private Group[] lines;
 	//private ArrayList<HintSolver> hints;
-	
+
 	public Sudoku(){
 		this.cells = new Cell[9][9];
 		this.blocs = new Group[9];
@@ -21,14 +21,14 @@ public class Sudoku implements SudokuModel{
 				this.cells[i][j] = new Cell();
 			}
 		}
-		
+
 		for(int i = 0 ; i < this.cells.length; i++){
 			this.blocs[i] = new GroupBloc(i, this);
 			this.lines[i] = new GroupLine(i, this);
 			this.column[i] = new GroupColumn(i, this);
 		}
 
-//		this.hints = new ArrayList<HintSolver>();
+		//		this.hints = new ArrayList<HintSolver>();
 		this.grilleinitialisee = false;
 	}
 
@@ -40,17 +40,18 @@ public class Sudoku implements SudokuModel{
 				int c = grid.charAt(compt);
 				int v = c -'0';
 				this.cells[i][j].setInitialValue(v);
-				compt++;
-				
+				compt++;			
 			}
 		}
+		this.grilleinitialisee = true;
+
 	}
 
 	@Override
 	public boolean isInit() {
 		return this.grilleinitialisee;
 	}
-	
+
 	/**
 	 * @return the blocs
 	 */
@@ -74,14 +75,24 @@ public class Sudoku implements SudokuModel{
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = true;
+		for(int i = 0 ; i < this.cells.length; i++){
+			for(int j = 0 ; j < this.cells.length; j++){
+				if(this.cells[i][j].getValue() == 0)res = false; 
+			}
+		}
+		return res;
 	}
 
 	@Override
 	public boolean isValide() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = true;
+		for(int i = 0 ; i < this.cells.length; i++){
+			for(int j = 0 ; j < this.cells.length; j++){
+				if(this.cells[i][j].isError())res = false; 
+			}
+		}
+		return res && this.isFull();
 	}
 
 	/*
@@ -89,7 +100,7 @@ public class Sudoku implements SudokuModel{
 	public CellValue getCell(int x, int y) {
 		return (CellValue)this.cells[x][y];
 	}
-	*/
+	 */
 
 	public Cell getCell(int x, int y){
 		return this.cells[y][x];
@@ -101,20 +112,20 @@ public class Sudoku implements SudokuModel{
 
 	@Override
 	public boolean setValue(int value, int cellNumber) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getCell(cellNumber).setValue(value);
+
 	}
 
 	@Override
 	public void computeCandidates() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void toggleCandidate(int digit, int cellNumber) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

@@ -4,8 +4,8 @@ public class GroupBloc extends Group{
 
 	public GroupBloc(int blocNumber, Sudoku model) {
 		super(blocNumber);
-		int b = blocNumber%3 * 3;
-		int a = blocNumber/3 * 3;
+		int a = blocNumber%3 * 3;
+		int b = blocNumber/3 * 3;
 		int compt = 0;
 		for(int i = a ; i < a+3; i ++){
 			for(int j = b ; j < b+3; j ++){

@@ -25,6 +25,15 @@ public class Group {
 		return groupNumber;
 	}
 	
+	public boolean checckError(int value){
+		boolean res = false;
+		for(int i = 0 ; i < this.cells.length; i++){
+			if(value == this.cells[i].getValue())res = true;
+		}
+		return res;
+	}
+	
+	
 	
 	
 	

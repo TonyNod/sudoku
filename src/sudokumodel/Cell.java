@@ -101,7 +101,7 @@ public class Cell implements CellValue {
 				if(this.value == this.column.getCells(i).value) res = true;
 			}
 			 */
-			res = line.checckError(value) && column.checckError(value) && bloc.checckError(value);
+			res = line.checkError(value) || column.checkError(value) || bloc.checkError(value);
 		}
 		return res;
 	}
@@ -113,6 +113,20 @@ public class Cell implements CellValue {
 			res = true;
 		}
 		return res;
+	}
+	
+	public void computeCandidates(){
+		int c = 1;
+		while(c < 10){
+			this.candidates[c-1] = false;
+			if(!line.checkError(c) && !column.checkError(c) && !bloc.checkError(c)){
+				this.candidates[c-1] = true;
+			}
+			System.out.println(c-1+" : " + this.candidates[c-1]);
+			c++;
+		}
+		System.out.println("*************************************");
+		
 	}
 
 

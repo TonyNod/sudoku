@@ -118,8 +118,11 @@ public class Sudoku implements SudokuModel{
 
 	@Override
 	public void computeCandidates() {
-		// TODO Auto-generated method stub
-
+		for(int i = 0 ; i < this.cells.length; i++){
+			for(int j = 0 ; j < this.cells.length; j++){
+				this.cells[i][j].computeCandidates();
+			}
+		}
 	}
 
 	@Override

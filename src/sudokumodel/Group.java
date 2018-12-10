@@ -40,6 +40,12 @@ public class Group {
 		return cpt>1;
 	}
 	
+	public boolean isCandidate(int value) {
+		boolean res = false;
+		
+		return res;
+	}
+	
 	
 	
 	

@@ -26,7 +26,7 @@ public class Cell implements CellValue {
 		this.value = value;
 		if(value != 0)this.initialValue = true;
 		for(int i = 0 ; i < this.candidates.length; i++){
-			this.candidates[i] = false;
+			this.candidates[i] = true;
 		}
 	}
 
@@ -118,9 +118,9 @@ public class Cell implements CellValue {
 	public void computeCandidates(){
 		int c = 1;
 		while(c < 10){
-			this.candidates[c-1] = false;
-			if(!line.checkError(c) && !column.checkError(c) && !bloc.checkError(c)){
-				this.candidates[c-1] = true;
+			//this.candidates[c-1] = false;
+			if(this.line.checkError(c) || this.column.checkError(c) || this.bloc.checkError(c)){
+				this.candidates[c-1] = false;
 			}
 			System.out.println(c-1+" : " + this.candidates[c-1]);
 			c++;

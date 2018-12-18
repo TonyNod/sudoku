@@ -1,6 +1,7 @@
 package sudokumodel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Cell implements CellValue {
 
@@ -15,7 +16,7 @@ public class Cell implements CellValue {
 	public Cell(){
 		this.value = 0;
 		this.initialValue = false;
-		this.candidates = new boolean[9];
+		this.candidates = new boolean[10];
 		for(int i = 0 ; i < this.candidates.length; i++){
 			this.candidates[i] = true;
 		}
@@ -26,7 +27,7 @@ public class Cell implements CellValue {
 		this.value = value;
 		if(value != 0)this.initialValue = true;
 		for(int i = 0 ; i < this.candidates.length; i++){
-			this.candidates[i] = true;
+			this.toggleCandidate(i);
 		}
 	}
 
@@ -67,7 +68,7 @@ public class Cell implements CellValue {
 	}
 
 	/**
-	 * @param bloc the bloc to set
+	 * @param btrueloc the bloc to set
 	 */
 	public void setBloc(Group bloc) {
 		this.bloc = bloc;
@@ -85,8 +86,13 @@ public class Cell implements CellValue {
 
 	@Override
 	public ArrayList<Integer> getCandidates() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if(this.value == 0){
+			for( int i = 0 ; i < this.candidates.length ; i++){
+				if(this.candidates[i]) res.add(i);
+			}
+		}
+		return res;
 	}
 
 	@Override
@@ -110,25 +116,36 @@ public class Cell implements CellValue {
 		boolean res = false;
 		if(this.initialValue == false){
 			this.value = value;
+			if( value != 0 && this.candidates[value])this.toggleCandidate(value);
 			res = true;
 		}
 		return res;
 	}
 	
 	public void computeCandidates(){
-		int c = 1;
-		while(c < 10){
-			//this.candidates[c-1] = false;
-			if(this.line.checkError(c) || this.column.checkError(c) || this.bloc.checkError(c)){
-				this.candidates[c-1] = false;
+		for( int i = 0 ; i < this.candidates.length ; i++){
+			this.candidates[i] = false;
+			if(this.line.isCandidate(i) && this.column.isCandidate(i) && this.bloc.isCandidate(i)){
+				this.candidates[i] = true;
 			}
-			System.out.println(c-1+" : " + this.candidates[c-1]);
-			c++;
 		}
-		System.out.println("*************************************");
-		
+	}
+	
+	public void toggleCandidate(int digit){
+		this.candidates[digit] = !this.candidates[digit];
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cell [value=" + value + ", initialValue=" + initialValue + ", candidates=" + Arrays.toString(candidates)+ "]";
+	}
+	
+	public void unsetCandidate(int value){
+		this.candidates[value] = false;
+	}
 
 
 

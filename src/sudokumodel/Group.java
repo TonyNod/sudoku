@@ -41,8 +41,10 @@ public class Group {
 	}
 	
 	public boolean isCandidate(int value) {
-		boolean res = false;
-		
+		boolean res = true;
+		for(int i = 0; i < this.cells.length; i++){
+			if(this.getCells(i).getValue() == value )res =false;		
+		}
 		return res;
 	}
 	

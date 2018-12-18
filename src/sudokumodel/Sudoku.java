@@ -127,8 +127,7 @@ public class Sudoku implements SudokuModel{
 
 	@Override
 	public void toggleCandidate(int digit, int cellNumber) {
-		// TODO Auto-generated method stub
-
+		this.getCell(cellNumber).toggleCandidate(digit);
 	}
 
 	@Override

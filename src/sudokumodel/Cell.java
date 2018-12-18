@@ -146,6 +146,10 @@ public class Cell implements CellValue {
 	public void unsetCandidate(int value){
 		this.candidates[value] = false;
 	}
+	
+	public void clearValue(){
+		if(!this.initialValue)this.value = 0;
+	}
 
 
 

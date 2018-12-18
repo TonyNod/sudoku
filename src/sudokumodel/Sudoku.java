@@ -132,14 +132,40 @@ public class Sudoku implements SudokuModel{
 
 	@Override
 	public boolean solve() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = true;
+		for(int i = 0 ; i < this.cells.length * this.cells.length; i++){
+				if(!this.backtracking(i))res = false;
+		}
+		return res;
 	}
 
 	@Override
 	public String hint() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private boolean backtracking(int cellNumber){
+		boolean res = true;
+		if(cellNumber == 81) res = true;
+		else{
+			if(this.getCell(cellNumber).getValue() != 0) res =this.backtracking(cellNumber+1);
+			else{
+				this.getCell(cellNumber).computeCandidates();
+				ArrayList<Integer> c = this.getCell(cellNumber).getCandidates();
+				for(int i = 0 ; i  < c.size();i++){
+					if(!res){
+					this.getCell(cellNumber).setValue(c.get(i));
+					res = this.backtracking(cellNumber+1);
+					if(!res){
+						this.getCell(cellNumber).clearValue();
+					}
+					}
+					
+				}
+			}
+		}
+		return res;
 	}
 
 }
